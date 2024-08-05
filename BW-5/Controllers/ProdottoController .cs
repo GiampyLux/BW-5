@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using BW_5.Models;
 using BW5.Models;
 using BW5.DataContext;
 
@@ -16,13 +15,11 @@ namespace BW_5.Controllers
             _context = context;
         }
 
-        // GET: Prodotto
         public async Task<IActionResult> Index()
         {
             return View(await _context.Prodotti.ToListAsync());
         }
 
-        // GET: Prodotto/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,13 +37,11 @@ namespace BW_5.Controllers
             return View(prodotto);
         }
 
-        // GET: Prodotto/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Prodotto/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Nome,NomeDitta,Categoria,DescrizioneUtilizzo,DittaRecapito,DittaNome,DittaIndirizzo")] Prodotto prodotto)
@@ -109,7 +104,6 @@ namespace BW_5.Controllers
             return View(prodotto);
         }
 
-        // GET: Prodotto/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,10 +118,12 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
-            return View(prodotto);
+            _context.Prodotti.Remove(prodotto);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: Prodotto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
