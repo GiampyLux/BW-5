@@ -1,3 +1,6 @@
+using BW5.DataContext;
+using Microsoft.EntityFrameworkCore;
+
 namespace BW_5
 {
     public class Program
@@ -8,6 +11,11 @@ namespace BW_5
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // CONFIG
+            var conn = builder.Configuration.GetConnectionString("DbBW")!;
+            builder.Services.AddDbContext<ClinicaDbContext>(opt =>
+                opt.UseSqlServer(builder.Configuration.GetConnectionString("DbBW")));
 
             var app = builder.Build();
 
