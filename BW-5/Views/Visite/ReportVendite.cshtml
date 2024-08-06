@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BW5.Models.Vendita>
+
+@{
+    ViewData["Title"] = "ReportVendite";
+}
+
+<h2>Report delle Vendite</h2>
+
+<a href="@Url.Action("CreateVendita", "Visite")" class="btn btn-success">Aggiungi Nuova Vendita</a>
+<br />
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Vendita</th>
+            <th>Cliente ID</th>
+            <th>Data Vendita</th>
+            <th>Prodotto</th>
+            <th>Ricetta Medica</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendita in Model)
+        {
+            <tr>
+                <td>@vendita.Id</td>
+                <td>@vendita.IdCliente</td>
+                <td>@vendita.DataVendita.ToShortDateString()</td>
+                <td>@vendita.Prodotto.Nome</td>
+                <td>@vendita.RicettaMedica</td>
+                <td>
+                    <form asp-action="DeleteVendita" asp-controller="Visite" asp-route-id="@vendita.Id" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questa vendita?');">
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
