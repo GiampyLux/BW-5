@@ -12,8 +12,9 @@ namespace BW5.DataContext
         public DbSet<Ricovero> Ricoveri { get; set; }
         public DbSet<Prodotto> Prodotti { get; set; }
         public DbSet<Vendita> Vendite { get; set; }
-        public DbSet<Armadio> Armadi { get; set; }
-        public DbSet<Cassetto> Cassetti { get; set; }
+        public DbSet<Magazzino> Magazzino { get; set; }
+        public DbSet<Ditta> Ditta { get; set; }
+        public DbSet<User> Users   { get; set; }
         public ClinicaDbContext(DbContextOptions<ClinicaDbContext> opt) : base(opt) { }
 
     }
