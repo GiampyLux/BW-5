@@ -1,4 +1,5 @@
-﻿using BW_5.ViewModels;
+﻿using BW_5.Models;
+using BW_5.ViewModels;
 using BW5.DataContext;
 using BW5.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,85 +16,52 @@ namespace BW_5.Controllers
             _clinicaDbContext = clinicaDbContext;
         }
 
-        // Form per la creazione di una vendita
-        public async Task<IActionResult> CreateVendita()
+        // Form per la creazione di una visita
+        public async Task<IActionResult> CreateVisita()
         {
-            var viewModel = new VenditaViewModel
-            {
-                Clienti = await _clinicaDbContext.Cliente.ToListAsync(),
-                Prodotti = await _clinicaDbContext.Prodotti.ToListAsync(),
-            };
-            return View(viewModel);
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateVendita(VenditaViewModel model)
+        public async Task<IActionResult> CreateVisita(VisitaViewModel model)
         {
-            if(!ModelState.IsValid)
-            {
-                var vendita = new Vendita
-                {
-                    IdCliente = model.ClienteId,
-                    DataVendita = DateTime.Now,
-                    ProdottoId = model.ProdottoId,
-                    RicettaMedica = model.RicettaMedica,
-                };
-                _clinicaDbContext.Vendite.Add(vendita);
-                await _clinicaDbContext.SaveChangesAsync();
-                return RedirectToAction("ReportVendite");
-            }
-
-            model.Clienti=await _clinicaDbContext.Cliente.ToListAsync();
-            model.Prodotti=await _clinicaDbContext.Prodotti.ToListAsync();
-
-            return View(model);
+            
         }
 
-        // Report di tutte le vendite
-        public async Task<IActionResult> ReportVendite()
+
+        // Report di tutte le visita
+        public async Task<IActionResult> ReportVisite()
         {
-            var vendite = await _clinicaDbContext.Vendite.Include(v => v.Prodotto).ToListAsync();
-            return View("ReportVendite", vendite);
+            var visite = await _clinicaDbContext.Visite.Include(v => v.Animale).ToListAsync();
+            return View(visite);
         }
 
-        // Dettagli di vendita
-        public async Task<IActionResult> DettagliVendite(int? id)
+        // Dettagli di visita
+        public async Task<IActionResult> DettagliVisita(int? id)
         {
             if(id == null)
             {
                 return NotFound();
             }
 
-            var vendita = await _clinicaDbContext.Vendite
-                .Include(v => v.Prodotto)
+            var visita = await _clinicaDbContext.Visite
+                .Include(v=>v.Animale)
                 .FirstOrDefaultAsync(m=>m.Id == id);
-            if(vendita == null)
+
+            if(visita == null)
             {
                 return NotFound();
             }
-
-            return View(vendita);
+            return View(visita);
         }
 
-        // Elimina la vendita + Conferma eliminazione
-        [HttpPost, ActionName("DeleteVendita")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteVendita(int? id)
-        {
+        // Elimina la visita + Conferma eliminazione
+        //[HttpPost, ActionName("DeleteVendita")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteVisita(int? id)
+        //{
 
-            var vendita = await _clinicaDbContext.Vendite
-                .Include(v=>v.Prodotto)
-                .FirstOrDefaultAsync(m=>m.Id==id);
-
-            if(vendita == null)
-            {
-                return NotFound();
-            }
-
-            _clinicaDbContext.Vendite.Remove(vendita);
-            await _clinicaDbContext.SaveChangesAsync();
-            return RedirectToAction("ReportVendite");
-        }
+        //}
 
     }
 }

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BW5.Models.Visita>
+
+@{
+    ViewData["Title"] = "Report Visite";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+<a class="btn btn-primary mb-3" href="@Url.Action("CreateVisita", "Visite")">Aggiungi Nuova Visita</a>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data Visita</th>
+            <th>Animale</th>
+            <th>Esame Obiettivo</th>
+            <th>Descrizione Cura</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var visita in Model)
+        {
+            <tr>
+                <td>@visita.DataVisita.ToString("dd/MM/yyyy")</td>
+                <td>@visita.Animale.Nome</td>
+                <td>@visita.Esame</td>
+                <td>@visita.DescrizioneCure</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
