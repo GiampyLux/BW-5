@@ -8,16 +8,11 @@ namespace BW5.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        [Required]
+        public int IdVisita { get; set; }
         public int IdAnimale { get; set; }
-        [Required]
-        public Animale Animale { get; set; }
-        [Required]
         public DateTime DataVisita { get; set; }
-        [Required]
         public string Esame { get; set; }
-        [Required]
-        public string DescrizioneCure { get; set; }
+        public string DescrizioneCura { get; set; }
+        public Animale Animale { get; set; }
     }
 }

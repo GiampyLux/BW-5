@@ -17,5 +17,6 @@ namespace BW_5.Models
         [Required]
         [StringLength(20)]
         public required string Password { get; set; }
+        public required string Role { get; set; }
     }
 }
