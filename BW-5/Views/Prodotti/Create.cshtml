@@ -1,0 +1,75 @@
+﻿@model clinica.Models.ViewModel.ProdottoVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ProdottoViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tipo" class="control-label"></label>
+                <input asp-for="Tipo" class="form-control" />
+                <span asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdDitta" class="control-label"></label>
+                <select asp-for="IdDitta" class="form-control">
+                    <option value="">Seleziona una ditta</option>
+                    @foreach (var ditta in ViewBag.Ditte as List<clinica.Models.Ditta>)
+                    {
+                        <option value="@ditta.Id">@ditta.Nome</option>
+                    }
+                </select>
+                <span asp-validation-for="IdDitta" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CassettoId" class="control-label"></label>
+                <select asp-for="CassettoId" class="form-control">
+                    <option value="">Seleziona un cassetto</option>
+                    @foreach (var cassetto in ViewBag.Cassetti as List<clinica.Models.Cassetto>)
+                    {
+                        <option value="@cassetto.Id">@cassetto.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CassettoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArmadioId" class="control-label"></label>
+                <select asp-for="ArmadioId" class="form-control">
+                    <option value="">Seleziona un armadio</option>
+                    @foreach (var armadio in ViewBag.Armadi as List<clinica.Models.Armadio>)
+                    {
+                        <option value="@armadio.Id">@armadio.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="ArmadioId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Utilizzo" class="control-label"></label>
+                <input asp-for="Utilizzo" class="form-control" />
+                <span asp-validation-for="Utilizzo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crea" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

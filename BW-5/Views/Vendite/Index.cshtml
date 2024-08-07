@@ -1,0 +1,37 @@
+﻿@model IEnumerable<clinica.Models.Vendita>
+
+@{
+    ViewData["Title"] = "Vendite";
+}
+
+<h1>Vendite</h1>
+
+<p>
+    <a asp-action="Create">Crea Nuova Vendita</a> |
+    <a asp-action="SearchByCodiceFiscale">Cerca Vendite per Codice Fiscale</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Prodotto</th>
+            <th>Numero Ricetta</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendita in Model)
+        {
+            <tr>
+                <td>@vendita.Cliente.Nome</td>
+                <td>@vendita.Prodotto.Nome</td>
+                <td>@vendita.NumeroRicetta</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@vendita.Id">Modifica</a> |
+                    <a asp-action="Delete" asp-route-id="@vendita.Id">Elimina</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
