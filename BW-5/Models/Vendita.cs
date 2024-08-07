@@ -8,10 +8,8 @@ namespace BW5.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdVendita { get; set; }
-        public int IdCliente { get; set; }
+        public int Id { get; set; }
         public Cliente Cliente { get; set; }
-        public int IdProdotto { get; set; }
         public string NumeroRicetta { get; set; }
         public Prodotto Prodotto { get; set; }
 
