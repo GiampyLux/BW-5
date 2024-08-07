@@ -1,10 +1,10 @@
-using clinica.DataContext;
-using clinica.Models;
-using clinica.Models.ViewModel;
+using BW_5.DataContext;
+using BW_5.Models;
+using BW_5.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinica.Controllers
+namespace BW_5.Controllers
 {
     public class ProdottiController : Controller
     {
