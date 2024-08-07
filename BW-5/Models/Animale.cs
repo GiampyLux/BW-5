@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using BW_5.Models;
 
-namespace BW5.Models
+namespace clinica.Models
 {
     public class Animale
     {
