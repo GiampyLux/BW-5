@@ -15,9 +15,8 @@ namespace BW_5.Models
         [Required]
         [StringLength(50)]
         public string Cognome { get; set; }
-        [Required]
         [StringLength(16)]
-        public string CodiceFiscale { get; set; }
+        public string? CodiceFiscale { get; set; }
         public IEnumerable<Animale> Animali { get; set; }
         public IEnumerable<Vendita> Vendite { get; set; }
     }
