@@ -7,10 +7,11 @@ namespace BW5.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdRicovero { get; set; }
+        public int Id { get; set; }
         public DateTime DataRicovero { get; set; }
         public string Foto { get; set; }
         public int IdAnimale { get; set; }
+        [ForeignKey("IdAnimale")]
         public Animale Animale { get; set; }
     }
 }
