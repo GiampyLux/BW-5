@@ -1,34 +1,22 @@
-﻿@model IEnumerable<BW5.Models.Animale>
+﻿@model IEnumerable<BW_5.Models.Animale>
 
 @{
-    ViewData["Title"] = "Elenco Animali";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Elenco Animali</h1>
+<h1>Pazienti della Clinica</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Crea Nuovo</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.First().Nome)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().Razza)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Pelo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Nascita)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Microchip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Cliente.Nome)
+                @Html.DisplayNameFor(model => model.Razza)
             </th>
             <th></th>
         </tr>
@@ -44,21 +32,10 @@
                     @Html.DisplayFor(modelItem => item.Razza)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Pelo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nascita)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Microchip)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Modifica</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Dettagli</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Elimina</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-link text-danger" onclick="return confirm('Sei sicuro di voler eliminare questo animale?');">Delete</button>
+                    </form>
                 </td>
             </tr>
         }

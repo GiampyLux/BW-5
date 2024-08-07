@@ -1,132 +1,86 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BW_5.Models;
+using BW_5.ViewModels;
+using BW_5.DataContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BW5.DataContext;
-using BW5.Models;
 
-namespace BW5.Controllers
+namespace BW_5.Controllers
 {
     public class AnimaliController : Controller
     {
         private readonly ClinicaDbContext _context;
-
         public AnimaliController(ClinicaDbContext context)
         {
-            _context = context;
+            _context = context; 
         }
-
-        // GET: Animali
         public async Task<IActionResult> Index()
         {
-            var animali = await _context.Animali.Include(a => a.Cliente).ToListAsync();
+            var animali = await _context.Animali.ToListAsync();
             return View(animali);
         }
-
-        // GET: Animali/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //------------------------------------------------------
+        [HttpGet]
+        public async Task<IActionResult> Create()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var proprietari = await _context.Clienti
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Nome + " " + c.Cognome
+                }).ToListAsync();
 
-            var animale = await _context.Animali
-                .Include(a => a.Cliente)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (animale == null)
-            {
-                return NotFound();
-            }
+            proprietari.Insert(0, new SelectListItem { Text = "Nessun proprietario", Value = "0" });
 
-            return View(animale);
+            var model = new AnimaleViewModel
+            {
+                Proprietari = proprietari
+            };
+
+            return View(model);
         }
 
-        // GET: Animali/Create
-        public IActionResult Create()
-        {
-            ViewBag.Clienti = new SelectList(_context.Cliente, "Id", "Nome");
-            return View();
-        }
-
-        // POST: Animali/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Razza,Pelo,Nascita,Microchip,IdProprietario,DataRegistrazione")] Animale animale)
+        public async Task<IActionResult> Create(AnimaleViewModel model)
         {
             if (ModelState.IsValid)
             {
-                animale.DataRegistrazione = DateTime.Now; // Imposta la data di registrazione
-                _context.Add(animale);
+                if (!model.PossiedeMicrochip)
+                {
+                    model.NumeroMicrochip = null;
+                }
+
+                var animale = new Animale
+                {
+                    DataRegistrazione = model.DataRegistrazione,
+                    Nome = model.Nome,
+                    Razza = model.Razza,
+                    Pelo = model.Pelo,
+                    Nascita = model.Nascita,
+                    PossiedeMicrochip = model.PossiedeMicrochip,
+                    NumeroMicrochip = model.NumeroMicrochip,
+                    IdProprietario = model.IdProprietario == 0 ? null : model.IdProprietario 
+                };
+
+                _context.Animali.Add(animale);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                // Log degli errori di validazione
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+
+            model.Proprietari = await _context.Clienti
+                .Select(c => new SelectListItem
                 {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-            }
-            ViewBag.Clienti = new SelectList(_context.Cliente, "Id", "Nome", animale.IdProprietario);
-            return View(animale);
+                    Value = c.Id.ToString(),
+                    Text = c.Nome + " " + c.Cognome
+                }).ToListAsync();
+            model.Proprietari.Insert(0, new SelectListItem { Text = "Nessun proprietario", Value = "0" });
+
+            return View(model);
         }
-
-        // GET: Animali/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var animale = await _context.Animali.FindAsync(id);
-            if (animale == null)
-            {
-                return NotFound();
-            }
-            ViewBag.Clienti = new SelectList(_context.Cliente, "Id", "Nome", animale.IdProprietario);
-            return View(animale);
-        }
-
-        // POST: Animali/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DataRegistrazione,Nome,Razza,Pelo,Nascita,Microchip,IdProprietario")] Animale animale)
-        {
-            if (id != animale.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(animale);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AnimaleExists(animale.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewBag.Clienti = new SelectList(_context.Cliente, "Id", "Nome", animale.IdProprietario);
-            return View(animale);
-        }
-
-        // GET: Animali/Delete/5
+        //------------------------------------------------------
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,8 +89,9 @@ namespace BW5.Controllers
             }
 
             var animale = await _context.Animali
-                .Include(a => a.Cliente)
+                .Include(a => a.Cliente) 
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (animale == null)
             {
                 return NotFound();
@@ -145,8 +100,7 @@ namespace BW5.Controllers
             return View(animale);
         }
 
-        // POST: Animali/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -156,12 +110,49 @@ namespace BW5.Controllers
                 _context.Animali.Remove(animale);
                 await _context.SaveChangesAsync();
             }
+
             return RedirectToAction(nameof(Index));
         }
-
-        private bool AnimaleExists(int id)
+        //------------------------------------------------------
+        public async Task<IActionResult> Details(int? id)
         {
-            return _context.Animali.Any(e => e.Id == id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var animale = await _context.Animali
+                .Include(a => a.Cliente)
+                .Include(a => a.Visite)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (animale == null)
+            {
+                return NotFound();
+            }
+
+            // Recupera il proprietario basato su IdProprietario
+            var proprietario = await _context.Clienti.FindAsync(animale.IdProprietario);
+
+            var model = new AnimaleViewModel
+            {
+                DataRegistrazione = animale.DataRegistrazione,
+                Nome = animale.Nome,
+                Razza = animale.Razza,
+                Pelo = animale.Pelo,
+                Nascita = animale.Nascita,
+                PossiedeMicrochip = animale.PossiedeMicrochip,
+                NumeroMicrochip = animale.NumeroMicrochip,
+                IdProprietario = animale.IdProprietario ?? 0,
+                Proprietario = proprietario, // Usa il proprietario recuperato
+                Anamnesi = animale.Visite.OrderByDescending(v => v.DataVisita).ToList()
+            };
+
+            return View(model);
         }
+
+
+
     }
 }
+

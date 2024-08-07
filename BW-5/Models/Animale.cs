@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using BW_5.Models;
 
-namespace BW5.Models
+namespace BW_5.Models
 {
     public class Animale
     {
@@ -21,16 +21,12 @@ namespace BW5.Models
 
         [Required]
         public string Pelo { get; set; }
-
-        public DateTime? Nascita { get; set; }
-
-        public string? Microchip { get; set; }
-
+        public DateTime Nascita { get; set; }
+        public bool PossiedeMicrochip { get; set; }
+        public string? NumeroMicrochip { get; set; }
         public int? IdProprietario { get; set; }
-
         [ForeignKey("IdProprietario")]
-        public Cliente Cliente { get; set; }
-
+        public Cliente? Cliente { get; set; }
         public ICollection<Visita> Visite { get; set; }
         public ICollection<Ricovero> Ricoveri { get; set; }
     }
