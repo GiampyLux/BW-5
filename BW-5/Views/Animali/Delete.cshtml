@@ -1,0 +1,60 @@
+﻿@model BW5.Models.Animale
+
+@{
+    ViewData["Title"] = "Elimina Animale";
+}
+
+<h1>Elimina Animale</h1>
+
+<h4>Sei sicuro di voler eliminare questo animale?</h4>
+<hr />
+<div>
+    <h4>Animale</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Razza)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Razza)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pelo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pelo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nascita)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nascita)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Microchip)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Microchip)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Elimina" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Annulla</a>
+    </form>
+</div>
+

@@ -83,9 +83,9 @@ namespace BW_5.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Razza = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Pelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nascita = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Microchip = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdProprietario = table.Column<int>(type: "int", nullable: false)
+                    Nascita = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Microchip = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdProprietario = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

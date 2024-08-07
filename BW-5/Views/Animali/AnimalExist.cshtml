@@ -1,0 +1,58 @@
+﻿@model BW5.Models.Animale
+
+@{
+    ViewData["Title"] = "Animale Esistente";
+}
+
+<h1>Animale Esistente</h1>
+
+<div class="alert alert-warning">
+    <strong>Attenzione!</strong> Un animale con queste informazioni esiste già nel sistema.
+</div>
+
+<h4>Dettagli Animale</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Nome)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Nome)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Razza)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Razza)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Pelo)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Pelo)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Nascita)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Nascita)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Microchip)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Microchip)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Cliente.Nome)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Cliente.Nome)
+    </dd>
+</dl>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Torna all'elenco</a>
+</div>
+
+

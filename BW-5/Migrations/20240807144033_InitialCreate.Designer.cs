@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BW_5.Migrations
 {
     [DbContext(typeof(ClinicaDbContext))]
-    [Migration("20240807131534_InitialCreate")]
+    [Migration("20240807144033_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,14 +36,13 @@ namespace BW_5.Migrations
                     b.Property<DateTime>("DataRegistrazione")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdProprietario")
+                    b.Property<int?>("IdProprietario")
                         .HasColumnType("int");
 
                     b.Property<string>("Microchip")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Nascita")
+                    b.Property<DateTime?>("Nascita")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nome")
@@ -298,8 +297,7 @@ namespace BW_5.Migrations
                     b.HasOne("BW_5.Models.Cliente", "Cliente")
                         .WithMany("Animali")
                         .HasForeignKey("IdProprietario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Cliente");
                 });
