@@ -19,5 +19,6 @@ namespace BW_5.Models
         [Required]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "La password deve essere almeno di 6 caratteri.")]
         public required string Password { get; set; }
+        public required string Role { get; set; }
     }
 }
