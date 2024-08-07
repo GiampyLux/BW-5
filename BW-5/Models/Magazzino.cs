@@ -2,7 +2,7 @@
 {
     public class Magazzino
     {
-        public int IdMagazzino { get; set; }
+        public int Id { get; set; }
         public int IdProdotto { get; set; }
         public bool Disponibilita { get; set; }
         public string Cassetto { get; set; }

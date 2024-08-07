@@ -4,7 +4,7 @@ namespace BW_5.Models
 {
     public class Ditta
     {
-        public int IdDitta { get; set; }
+        public int Id { get; set; }
         public string Nome { get; set; }
         public string Contatto { get; set; }
         public string Indirizzo { get; set; }

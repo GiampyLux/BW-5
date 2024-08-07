@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BW_5.ViewModels.VisitaViewModel>;
+
+@{
+    ViewData["Title"] = "Elenco Completo delle Visite";
+}
+
+    <h1>@ViewData["Title"]</h1>
+    <br />
+<a href="@Url.Action("AddVisita", "Visite")" class="btn btn-primary" style="margin-bottom: 20px;">Aggiungi Nuova Visita</a>
+    <br />
+
+@if (Model.Any()) 
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome Animale</th>
+                    <th>Data Visita</th>
+                    <th>Esame Obiettivo</th>
+                    <th>Descrizione Cura</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var visita in Model)
+            {
+                    <tr>
+                        <td>@visita.NomeAnimale</td>
+                        <td>@visita.DataVisita.ToString("dd/MM/yyyy")</td>
+                        <td>@visita.Esame</td>
+                        <td>@visita.DescrizioneCura</td>
+                    <td>
+                        <form method="post" action="@Url.Action("DeleteVisita", "Visite", new { id = visita.Id })" onsubmit="return confirm('Sei sicuro di voler eliminare questa visita?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                    </td>
+                    </tr>
+            }
+            </tbody>
+        </table>
+}
+else
+{
+        <p>Nessuna visita registrata.</p>
+}

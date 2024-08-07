@@ -30,11 +30,7 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ColorePelo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DataNascita")
+                    b.Property<DateTime>("DataRegistrazione")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdProprietario")
@@ -44,25 +40,29 @@ namespace BW_5.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Tipologia")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("dataRegistrazione")
+                    b.Property<DateTime>("Nascita")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pelo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Razza")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("IdProprietario");
 
                     b.ToTable("Animali");
                 });
 
-            modelBuilder.Entity("BW5.Models.Armadio", b =>
+            modelBuilder.Entity("BW5.Models.Magazzino", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,38 +70,23 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CassettoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodiceUnivoco")
+                    b.Property<string>("Armadio")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Armadi");
-                });
-
-            modelBuilder.Entity("BW5.Models.Cassetto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ArmadioId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodiceUnivoco")
+                    b.Property<string>("Cassetto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Disponibilita")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdProdotto")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ArmadioId");
-
-                    b.ToTable("Cassetti");
+                    b.ToTable("Magazzino");
                 });
 
             modelBuilder.Entity("BW5.Models.Prodotto", b =>
@@ -112,35 +97,30 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdDitta")
+                        .HasColumnType("int");
 
-                    b.Property<string>("DescrizioneUtilizzo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdMagazzino")
+                        .HasColumnType("int");
 
-                    b.Property<string>("DittaIndirizzo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DittaNome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DittaRecapito")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdVendita")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NomeDitta")
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Utilizzo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdDitta");
 
                     b.ToTable("Prodotti");
                 });
@@ -153,10 +133,7 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AnimaleId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DataInizioRicovero")
+                    b.Property<DateTime>("DataRicovero")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Foto")
@@ -168,7 +145,7 @@ namespace BW_5.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnimaleId");
+                    b.HasIndex("IdAnimale");
 
                     b.ToTable("Ricoveri");
                 });
@@ -181,20 +158,19 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DataVendita")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdCliente")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
+
+                    b.Property<string>("NumeroRicetta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProdottoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RicettaMedica")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("ProdottoId");
 
@@ -209,13 +185,10 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AnimaleId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataVisita")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DescrizioneCure")
+                    b.Property<string>("DescrizioneCura")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -228,7 +201,7 @@ namespace BW_5.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnimaleId");
+                    b.HasIndex("IdAnimale");
 
                     b.ToTable("Visite");
                 });
@@ -261,18 +234,89 @@ namespace BW_5.Migrations
                     b.ToTable("Cliente");
                 });
 
-            modelBuilder.Entity("BW5.Models.Cassetto", b =>
+            modelBuilder.Entity("BW_5.Models.Ditta", b =>
                 {
-                    b.HasOne("BW5.Models.Armadio", null)
-                        .WithMany("Cassetti")
-                        .HasForeignKey("ArmadioId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Contatto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Indirizzo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ditta");
+                });
+
+            modelBuilder.Entity("BW_5.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BW5.Models.Animale", b =>
+                {
+                    b.HasOne("BW_5.Models.Cliente", "Cliente")
+                        .WithMany("Animali")
+                        .HasForeignKey("IdProprietario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("BW5.Models.Prodotto", b =>
+                {
+                    b.HasOne("BW_5.Models.Ditta", "Ditta")
+                        .WithMany("Prodotti")
+                        .HasForeignKey("IdDitta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ditta");
                 });
 
             modelBuilder.Entity("BW5.Models.Ricovero", b =>
                 {
                     b.HasOne("BW5.Models.Animale", "Animale")
                         .WithMany("Ricoveri")
-                        .HasForeignKey("AnimaleId")
+                        .HasForeignKey("IdAnimale")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -281,11 +325,19 @@ namespace BW_5.Migrations
 
             modelBuilder.Entity("BW5.Models.Vendita", b =>
                 {
+                    b.HasOne("BW_5.Models.Cliente", "Cliente")
+                        .WithMany("Vendite")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BW5.Models.Prodotto", "Prodotto")
                         .WithMany()
                         .HasForeignKey("ProdottoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
 
                     b.Navigation("Prodotto");
                 });
@@ -294,7 +346,7 @@ namespace BW_5.Migrations
                 {
                     b.HasOne("BW5.Models.Animale", "Animale")
                         .WithMany("Visite")
-                        .HasForeignKey("AnimaleId")
+                        .HasForeignKey("IdAnimale")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -308,9 +360,16 @@ namespace BW_5.Migrations
                     b.Navigation("Visite");
                 });
 
-            modelBuilder.Entity("BW5.Models.Armadio", b =>
+            modelBuilder.Entity("BW_5.Models.Cliente", b =>
                 {
-                    b.Navigation("Cassetti");
+                    b.Navigation("Animali");
+
+                    b.Navigation("Vendite");
+                });
+
+            modelBuilder.Entity("BW_5.Models.Ditta", b =>
+                {
+                    b.Navigation("Prodotti");
                 });
 #pragma warning restore 612, 618
         }

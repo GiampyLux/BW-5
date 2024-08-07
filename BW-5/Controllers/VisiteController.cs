@@ -1,68 +1,101 @@
-﻿using BW_5.Models;
-using BW_5.ViewModels;
+﻿using BW_5.ViewModels;
 using BW5.DataContext;
 using BW5.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BW_5.Controllers
 {
     public class VisiteController : Controller
     {
-        private readonly ClinicaDbContext _clinicaDbContext;
-        
-        public VisiteController(ClinicaDbContext clinicaDbContext)
+        private readonly ClinicaDbContext _context;
+        public VisiteController(ClinicaDbContext context)
         {
-            _clinicaDbContext = clinicaDbContext;
+            _context = context;
         }
-
-        // Form per la creazione di una visita
-        public async Task<IActionResult> CreateVisita()
+        public async Task<IActionResult> AllVisite()
         {
+            var visite = await _context.Visite
+                .Include(v => v.Animale)
+                .Select(v => new VisitaViewModel
+                {
+                    Id = v.Id,
+                    NomeAnimale = v.Animale.Nome,
+                    DataVisita = v.DataVisita,
+                    Esame = v.Esame,
+                    DescrizioneCura = v.DescrizioneCura,
+                }).ToListAsync();
+            return View(visite);
+        }
+        //------------------------------------------------
+        public async Task<IActionResult> AddVisita()
+        {
+            var animali = await _context.Animali.ToListAsync();
+            ViewBag.Animali = new SelectList(animali, "Id", "Nome");
+
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateVisita(VisitaViewModel model)
+        public async Task<IActionResult> AddVisita(VisitaViewModel model)
         {
-            
+            if (ModelState.IsValid)
+            {
+                var animale = await _context.Animali.FindAsync(model.AnimaleId);
+                if(animale != null)
+                {
+                    var visita = new Visita
+                    {
+                        IdAnimale = animale.Id,
+                        DataVisita = model.DataVisita,
+                        Esame = model.Esame,
+                        DescrizioneCura = model.DescrizioneCura
+                    };
+                    _context.Visite.Add(visita);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("AllVisite");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Animale non trovato");
+                }
+            }
+            ViewBag.Animali = new SelectList(await _context.Animali.ToListAsync(), "Id", "Nome");
+            return View(model);
         }
-
-
-        // Report di tutte le visita
-        public async Task<IActionResult> ReportVisite()
+        //------------------------------------------------
+        [HttpGet]
+        public async Task<IActionResult> DeleteVisita(int? id)
         {
-            var visite = await _clinicaDbContext.Visite.Include(v => v.Animale).ToListAsync();
-            return View(visite);
-        }
-
-        // Dettagli di visita
-        public async Task<IActionResult> DettagliVisita(int? id)
-        {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var visita = await _clinicaDbContext.Visite
-                .Include(v=>v.Animale)
-                .FirstOrDefaultAsync(m=>m.Id == id);
-
-            if(visita == null)
+            var visita = await _context.Visite
+                .Include(v => v.Animale)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (visita == null)
             {
                 return NotFound();
             }
+
             return View(visita);
         }
 
-        // Elimina la visita + Conferma eliminazione
-        //[HttpPost, ActionName("DeleteVendita")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteVisita(int? id)
-        //{
-
-        //}
-
+        [HttpPost, ActionName("DeleteVisita")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteVisita(int id)
+        {
+            var visita = await _context.Visite.FindAsync(id);
+            if (visita != null)
+            {
+                _context.Visite.Remove(visita);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(AllVisite));
+            }
+            return NotFound();
+        }
     }
 }
- 
