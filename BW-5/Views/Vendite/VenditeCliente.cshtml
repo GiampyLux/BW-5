@@ -1,0 +1,48 @@
+﻿@model clinica.Models.ViewModel.VenditeClienteViewModel
+
+<h1>Vendite del Cliente</h1>
+
+<h2>Prodotti Disponibili</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome Prodotto</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prodotto in Model.Prodotti)
+        {
+                <tr>
+                    <td>@prodotto.Nome</td>
+                    <td>
+                        <form asp-action="AggiungiAlCarrello" method="post">
+                            <input type="hidden" name="clienteId" value="@ViewBag.ClienteId" />
+                            <input type="hidden" name="prodottoId" value="@prodotto.Id" />
+                            <input type="text" name="numeroRicetta" placeholder="Numero Ricetta" />
+                            <button type="submit" class="btn btn-primary">Aggiungi al Carrello</button>
+                        </form>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Vendite Esistenti</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome Prodotto</th>
+            <th>Numero Ricetta</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendita in Model.Vendite)
+        {
+                <tr>
+                    <td>@vendita.Prodotto.Nome</td>
+                    <td>@vendita.NumeroRicetta</td>
+                </tr>
+        }
+    </tbody>
+</table>

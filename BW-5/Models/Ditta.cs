@@ -1,6 +1,4 @@
-﻿using BW5.Models;
-
-namespace BW_5.Models
+﻿namespace clinica.Models
 {
     public class Ditta
     {

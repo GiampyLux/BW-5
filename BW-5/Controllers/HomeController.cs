@@ -1,8 +1,8 @@
-using BW_5.Models;
+using clinica.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace BW_5.Controllers
+namespace clinica.Controllers
 {
     public class HomeController : Controller
     {
