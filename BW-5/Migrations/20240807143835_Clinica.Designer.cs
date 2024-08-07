@@ -12,8 +12,13 @@ using clinica.DataContext;
 namespace BW_5.Migrations
 {
     [DbContext(typeof(ClinicaDbContext))]
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
     [Migration("20240807143835_Clinica")]
     partial class Clinica
+========
+    [Migration("20240807080953_modificheModels")]
+    partial class modificheModels
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +38,12 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.Property<int?>("ClienteId")
                         .HasColumnType("int");
 
+========
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                     b.Property<DateTime>("DataRegistrazione")
                         .HasColumnType("datetime2");
 
@@ -63,12 +71,20 @@ namespace BW_5.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.HasIndex("ClienteId");
+========
+                    b.HasIndex("IdProprietario");
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
 
                     b.ToTable("Animali");
                 });
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
             modelBuilder.Entity("clinica.Models.Armadio", b =>
+========
+            modelBuilder.Entity("BW5.Models.Magazzino", b =>
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,6 +92,7 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.Property<bool>("Disponibilita")
                         .HasColumnType("bit");
 
@@ -190,16 +207,63 @@ namespace BW_5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Utilizzo")
+========
+                    b.Property<string>("Armadio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cassetto")
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Disponibilita")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("IdProdotto")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
+                    b.HasIndex("ArmadioId");
+
+                    b.HasIndex("CassettoId");
+========
+                    b.ToTable("Magazzino");
+                });
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
+
+                    b.HasIndex("DittaId");
+
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
+                    b.HasIndex("IdDitta");
+========
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdDitta")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdMagazzino")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdVendita")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Utilizzo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArmadioId");
-
-                    b.HasIndex("CassettoId");
-
-                    b.HasIndex("DittaId");
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
 
                     b.HasIndex("IdDitta");
 
@@ -214,9 +278,12 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.Property<int>("AnimaleId")
                         .HasColumnType("int");
 
+========
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                     b.Property<DateTime>("DataRicovero")
                         .HasColumnType("datetime2");
 
@@ -229,7 +296,7 @@ namespace BW_5.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnimaleId");
+                    b.HasIndex("IdAnimale");
 
                     b.ToTable("Ricoveri");
                 });
@@ -242,6 +309,7 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -273,6 +341,8 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+========
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                     b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
@@ -280,6 +350,7 @@ namespace BW_5.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("IdProdotto")
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                         .HasColumnType("int");
 
                     b.Property<int>("NumeroRicetta")
@@ -288,6 +359,17 @@ namespace BW_5.Migrations
                     b.Property<int>("ProdottoId")
                         .HasColumnType("int");
 
+========
+                        .HasColumnType("int");
+
+                    b.Property<string>("NumeroRicetta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProdottoId")
+                        .HasColumnType("int");
+
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
@@ -305,9 +387,6 @@ namespace BW_5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AnimaleId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataVisita")
                         .HasColumnType("datetime2");
 
@@ -324,7 +403,7 @@ namespace BW_5.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AnimaleId");
+                    b.HasIndex("IdAnimale");
 
                     b.ToTable("Visite");
                 });
@@ -336,6 +415,7 @@ namespace BW_5.Migrations
                         .HasForeignKey("ClienteId");
                 });
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
             modelBuilder.Entity("clinica.Models.Cassetto", b =>
                 {
                     b.HasOne("clinica.Models.Armadio", "Armadio")
@@ -345,6 +425,84 @@ namespace BW_5.Migrations
                         .IsRequired();
 
                     b.Navigation("Armadio");
+========
+            modelBuilder.Entity("BW_5.Models.Ditta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Contatto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Indirizzo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ditta");
+                });
+
+            modelBuilder.Entity("BW_5.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("BW5.Models.Animale", b =>
+                {
+                    b.HasOne("BW_5.Models.Cliente", "Cliente")
+                        .WithMany("Animali")
+                        .HasForeignKey("IdProprietario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("BW5.Models.Prodotto", b =>
+                {
+                    b.HasOne("BW_5.Models.Ditta", "Ditta")
+                        .WithMany("Prodotti")
+                        .HasForeignKey("IdDitta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ditta");
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                 });
 
             modelBuilder.Entity("clinica.Models.Prodotto", b =>
@@ -378,7 +536,7 @@ namespace BW_5.Migrations
                 {
                     b.HasOne("clinica.Models.Animale", "Animale")
                         .WithMany("Ricoveri")
-                        .HasForeignKey("AnimaleId")
+                        .HasForeignKey("IdAnimale")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -387,13 +545,21 @@ namespace BW_5.Migrations
 
             modelBuilder.Entity("clinica.Models.Vendita", b =>
                 {
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.HasOne("clinica.Models.Cliente", "Cliente")
+========
+                    b.HasOne("BW_5.Models.Cliente", "Cliente")
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                         .WithMany("Vendite")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
                     b.HasOne("clinica.Models.Prodotto", "Prodotto")
+========
+                    b.HasOne("BW5.Models.Prodotto", "Prodotto")
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                         .WithMany()
                         .HasForeignKey("ProdottoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -408,7 +574,7 @@ namespace BW_5.Migrations
                 {
                     b.HasOne("clinica.Models.Animale", "Animale")
                         .WithMany("Visite")
-                        .HasForeignKey("AnimaleId")
+                        .HasForeignKey("IdAnimale")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -422,6 +588,7 @@ namespace BW_5.Migrations
                     b.Navigation("Visite");
                 });
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
             modelBuilder.Entity("clinica.Models.Armadio", b =>
                 {
                     b.Navigation("Cassetti");
@@ -431,12 +598,20 @@ namespace BW_5.Migrations
 
             modelBuilder.Entity("clinica.Models.Cliente", b =>
                 {
+========
+            modelBuilder.Entity("BW_5.Models.Cliente", b =>
+                {
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                     b.Navigation("Animali");
 
                     b.Navigation("Vendite");
                 });
 
+<<<<<<<< HEAD:BW-5/Migrations/20240807143835_Clinica.Designer.cs
             modelBuilder.Entity("clinica.Models.Ditta", b =>
+========
+            modelBuilder.Entity("BW_5.Models.Ditta", b =>
+>>>>>>>> BetaMainDue:BW-5/Migrations/20240807080953_modificheModels.Designer.cs
                 {
                     b.Navigation("Prodotti");
                 });

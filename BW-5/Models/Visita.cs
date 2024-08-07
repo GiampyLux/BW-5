@@ -12,6 +12,7 @@ namespace clinica.Models
         public DateTime DataVisita { get; set; }
         public string Esame { get; set; }
         public string DescrizioneCura { get; set; }
+        [ForeignKey("IdAnimale")]
         public Animale Animale { get; set; }
     }
 }

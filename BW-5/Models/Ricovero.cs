@@ -11,6 +11,7 @@ namespace clinica.Models
         public DateTime DataRicovero { get; set; }
         public string Foto { get; set; }
         public int IdAnimale { get; set; }
+        [ForeignKey("IdAnimale")]
         public Animale Animale { get; set; }
     }
 }
