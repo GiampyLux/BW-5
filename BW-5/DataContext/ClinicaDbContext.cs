@@ -1,8 +1,8 @@
-﻿using clinica.Models;
+﻿using BW_5.Models;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace clinica.DataContext
+namespace BW_5.DataContext
 {
     public class ClinicaDbContext : DbContext
     {
