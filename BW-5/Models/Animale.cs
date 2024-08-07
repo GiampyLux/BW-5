@@ -13,9 +13,9 @@ namespace BW5.Models
         public string Nome { get; set; }
         public string Razza { get; set; } 
         public string Pelo { get; set; }
-        public DateTime Nascita { get; set; }
-        public string Microchip { get; set; }
-        public int IdProprietario { get; set; }
+        public DateTime? Nascita { get; set; }
+        public string? Microchip { get; set; }
+        public int? IdProprietario { get; set; }
         [ForeignKey("IdProprietario")]
         public Cliente Cliente { get; set; }
         public ICollection<Visita> Visite { get; set; }

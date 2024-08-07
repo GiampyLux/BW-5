@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BW_5.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Clienti";
+}
+
+<h1>Clienti</h1>
+
+<p>
+    <a asp-action="Create">Crea Nuovo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Cognome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CodiceFiscale)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cognome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodiceFiscale)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Modifica</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Dettagli</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Elimina</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Nessun dato disponibile.</td>
+            </tr>
+        }
+    </tbody>

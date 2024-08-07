@@ -13,9 +13,9 @@ namespace BW_5
             builder.Services.AddControllersWithViews();
 
             // CONFIG
-            var conn = builder.Configuration.GetConnectionString("DbBW")!;
+            var conn = builder.Configuration.GetConnectionString("DbBW");
             builder.Services.AddDbContext<ClinicaDbContext>(opt =>
-                opt.UseSqlServer(builder.Configuration.GetConnectionString("DbBW")));
+                opt.UseSqlServer(conn));
 
             var app = builder.Build();
 

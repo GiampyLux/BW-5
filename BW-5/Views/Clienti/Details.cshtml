@@ -1,0 +1,36 @@
+﻿@model BW_5.Models.Cliente
+
+@{
+    ViewData["Title"] = "Dettagli Cliente";
+}
+
+<h1>Dettagli Cliente</h1>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cognome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cognome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CodiceFiscale)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CodiceFiscale)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Modifica</a> |
+    <a asp-action="Index">Torna all'elenco</a>
+</div>

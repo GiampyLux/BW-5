@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BW_5.Migrations
 {
     /// <inheritdoc />
-    public partial class modificheModels : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -171,9 +171,7 @@ namespace BW_5.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdCliente = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
-                    IdProdotto = table.Column<int>(type: "int", nullable: false),
                     NumeroRicetta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProdottoId = table.Column<int>(type: "int", nullable: false)
                 },
