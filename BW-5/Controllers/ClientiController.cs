@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BW_5.Models;
 using BW_5.DataContext;
-using BW_5.ViewModel;
+using BW_5.Models.ViewModel;
 
 
 namespace BW_5.Controllers

@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using BW_5.Models;
 
-namespace BW_5.ViewModel
+namespace BW_5.Models.ViewModel
 {
     public class ProdottoVM
 
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        
+
         public Prodotto Prodotto { get; set; }
         public IEnumerable<Ditta> Ditte { get; set; }
         public IEnumerable<Cassetto> Cassetti { get; set; }

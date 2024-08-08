@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace BW_5.ViewModel
+namespace BW_5.Models.ViewModel
 {
     public class AnimaleViewModel
     {
@@ -41,8 +41,8 @@ namespace BW_5.ViewModel
         public string ColoreMantello { get; set; }  // Campo aggiunto
 
         public int IdProprietario { get; set; }
-        public List<SelectListItem> Proprietari { get; set; } = new List<SelectListItem>();
-        public Cliente? Proprietario { get; set; }
+        public List<SelectListItem> Proprietario { get; set; } = new List<SelectListItem>();
+        public Cliente? Proprietari { get; set; }
         public List<Visita> Anamnesi { get; set; } = new List<Visita>();
     }
 }

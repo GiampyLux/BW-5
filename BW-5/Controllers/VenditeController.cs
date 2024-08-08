@@ -1,4 +1,4 @@
-using BW_5.ViewModel;
+using BW_5.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BW_5.DataContext;
 using BW_5.Models;
+
 
 namespace BW_5.Controllers
 {

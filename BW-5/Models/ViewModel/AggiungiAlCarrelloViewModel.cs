@@ -1,6 +1,6 @@
 ﻿using BW_5.Models;
 
-namespace BW_5.ViewModel
+namespace BW_5.Models.ViewModel
 {
     public class AggiungiAlCarrelloViewModel
     {

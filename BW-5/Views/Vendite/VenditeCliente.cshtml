@@ -1,48 +1,56 @@
-﻿@model VenditeClienteViewModel
+﻿@model BW_5.Models.ViewModel.VenditeClienteViewModel
 
-<h1>Vendite del Cliente</h1>
+@{
+    ViewData["Title"] = "Vendite Cliente";
+}
 
-<h2>Prodotti Disponibili</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome Prodotto</th>
-            <th>Azioni</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var prodotto in Model.Prodotti)
-        {
+<h1>Vendite Cliente</h1>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nome
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Cliente?.Nome
+        </dd>
+        <dt class="col-sm-2">
+            Cognome
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Cliente?.Cognome
+        </dd>
+        <dt class="col-sm-2">
+            Codice Fiscale
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Cliente?.CodiceFiscale
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Vendite</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data Vendita</th>
+                <th>Prodotto</th>
+                <th>Numero Ricetta</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vendita in Model.Vendite)
+            {
                 <tr>
-                    <td>@prodotto.Nome</td>
-                    <td>
-                        <form asp-action="AggiungiAlCarrello" method="post">
-                            <input type="hidden" name="clienteId" value="@ViewBag.ClienteId" />
-                            <input type="hidden" name="prodottoId" value="@prodotto.Id" />
-                            <input type="text" name="numeroRicetta" placeholder="Numero Ricetta" />
-                            <button type="submit" class="btn btn-primary">Aggiungi al Carrello</button>
-                        </form>
-                    </td>
-                </tr>
-        }
-    </tbody>
-</table>
-
-<h2>Vendite Esistenti</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome Prodotto</th>
-            <th>Numero Ricetta</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var vendita in Model.Vendite)
-        {
-                <tr>
-                    <td>@vendita.Prodotto.Nome</td>
+                    <td>@vendita.DataVendita</td>
+                    <td>@vendita.Prodotto?.Nome</td>
                     <td>@vendita.NumeroRicetta</td>
                 </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
+</div>

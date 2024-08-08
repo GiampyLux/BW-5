@@ -1,6 +1,6 @@
 ﻿using BW_5.DataContext;
 using BW_5.Models;
-using BW_5.ViewModel;
+using BW_5.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
