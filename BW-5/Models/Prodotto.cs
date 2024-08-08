@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using BW5.Models;
 
 namespace BW_5.Models
 {

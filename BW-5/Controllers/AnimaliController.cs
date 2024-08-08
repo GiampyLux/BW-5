@@ -1,6 +1,6 @@
 ﻿using BW_5.Models;
 using BW_5.ViewModels;
-using BW_5.DataContext;
+using BW5.DataContext;
 using BW5.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -147,7 +147,7 @@ namespace BW_5.Controllers
                 PossiedeMicrochip = animale.PossiedeMicrochip,
                 NumeroMicrochip = animale.NumeroMicrochip,
                 IdProprietario = animale.IdProprietario ?? 0,
-                Proprietaro = proprietario, // Usa il proprietario recuperato
+                Proprietario = proprietario, // Usa il proprietario recuperato
                 Anamnesi = animale.Visite.OrderByDescending(v => v.DataVisita).ToList()
             };
 
