@@ -30,7 +30,11 @@ namespace BW_5
             {
                 options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("MedicoOnly", policy => policy.RequireRole("Medico"));
-                options.AddPolicy("FarmacistaOnly", policy => policy.RequireRole("Farmacista"));
+                options.AddPolicy("FarmacistaOnly", policy => policy.RequireRole("Farmacista"));                                                  
+                options.AddPolicy("AdminOrMedico", policy => policy.RequireRole("Admin", "Medico"));
+                options.AddPolicy("AdminOrFarmacista", policy => policy.RequireRole("Admin", "Farmacista"));
+
+
             });
 
             var app = builder.Build();

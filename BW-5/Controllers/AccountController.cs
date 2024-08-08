@@ -34,7 +34,8 @@ namespace BW_5.Controllers
                 // Creare i claims dell'utente
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Role, user.Role)
                 };
 
@@ -70,8 +71,7 @@ namespace BW_5.Controllers
                 _context.Users.Add(model);
                 _context.SaveChanges();
 
-                // Registrazione riuscita, redirigi alla pagina di login
-                return RedirectToAction("Login");
+                
             }
 
             return View(model);
@@ -81,7 +81,7 @@ namespace BW_5.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
