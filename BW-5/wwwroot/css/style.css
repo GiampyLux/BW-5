@@ -1,0 +1,111 @@
+/* Palette di colori */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #ffc107;
+    --text-color: #343a40;
+    --background-color: #f8f9fa;
+    --footer-bg-color: #343a40;
+    --footer-text-color: #fff;
+    --link-hover-color: #ffc107;
+    --navbar-link-color: red;
+}
+
+/* Stili di base */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Stili per l'intestazione e la barra di navigazione */
+header {
+    background-color: var(); /* Colore di sfondo della barra di navigazione */
+    padding: 1.5rem 1.5rem; 
+}
+
+    header .navbar-brand img {
+        height: 60px; 
+    }
+
+    header .navbar-nav .nav-link {
+    
+        font-size: 1.25rem; /* Aumenta la dimensione del testo dei link */
+        padding: 0.75rem 1.5rem; 
+    }
+
+        header .navbar-nav .nav-link:hover {
+            color: var(--navbar-link-color); 
+        }
+
+/* Stili per il footer */
+.footer {
+    background-color: var(--footer-bg-color); 
+    color: var(--footer-text-color);
+    padding: 1rem 0; 
+}
+
+    .footer h5 {
+        color: var(--link-hover-color); 
+        margin-bottom: 0.5rem; 
+    }
+
+    .footer a {
+        color: var(--link-hover-color); 
+        text-decoration: none; 
+    }
+
+        .footer a:hover {
+            color: var(--footer-text-color); 
+            text-decoration: underline; 
+        }
+
+    .footer .text-center {
+        margin-top: 1rem; 
+    }
+
+/* Stili personalizzati per i pulsanti */
+
+/* Stili personalizzati per le card */
+.card-custom {
+    border: none; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
+    .card-custom .card-header {
+        background-color: var(--primary-color);
+        color: var(--footer-text-color); 
+    }
+
+    .card-custom .card-body {
+        background-color: var(--footer-text-color); 
+        color: var(--text-color); 
+    }
+
+/* Stili per i form */
+.form-control:focus {
+    border-color: var(--primary-color); /* Colore del bordo  controllo del form al focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+.form-label {
+    font-weight: bold; /* Grassetto per le etichette dei form */
+}
+
+/* Utilità personalizzate per margini e padding */
+.mt-20 {
+    margin-top: 20px; /* Margine superiore di 20px */
+}
+
+.mb-20 {
+    margin-bottom: 20px; /* Margine inferiore di 20px */
+}
+
+.pt-20 {
+    padding-top: 20px; /* Spaziatura interna superiore di 20px */
+}
+
+.pb-20 {
+    padding-bottom: 20px; /* Spaziatura interna inferiore di 20px */
+}

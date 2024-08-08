@@ -3,16 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BW_5</title>
+    <title>@ViewData["Title"] - clinica</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BW_5.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BW_5</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo_nosfondo.png" alt="clinica" /> <!--logo.png -->
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,6 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Animali" asp-action="Index">Anagrafe Animali</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Prodotti" asp-action="Index">Prodotti</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -42,11 +47,58 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-5">
         <div class="container">
-            &copy; 2024 - BW_5 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <!-- Sezione Contatti -->
+                <div class="col-md-4">
+                    <h5>Contatti</h5>
+                    <p>
+                        <strong>Indirizzo:</strong><br>
+                        Via degli Animali, 123<br>
+                        00100 Roma, Italia
+                    </p>
+                    <p>
+                        <strong>Telefono:</strong><br>
+                        +39 06 1234 5678
+                    </p>
+                    <p>
+                        <strong>Email:</strong><br>
+                        <a href="mailto:info@clinicaveterinaria.it">info@clinicaveterinaria.it</a>
+                    </p>
+                </div>
+                <!-- Sezione Orari di Apertura -->
+                <div class="col-md-4">
+                    <h5>Orari di Apertura</h5>
+                    <p>
+                        <strong>Lunedì - Venerdì:</strong><br>
+                        09:00 - 18:00
+                    </p>
+                    <p>
+                        <strong>Sabato:</strong><br>
+                        09:00 - 13:00
+                    </p>
+                    <p>
+                        <strong>Domenica:</strong><br>
+                        Chiuso
+                    </p>
+                </div>
+                <!-- Sezione Social Media -->
+                <div class="col-md-4">
+                    <h5>Seguici sui Social</h5>
+                    <a href="https://www.facebook.com/clinicaveterinaria" target="_blank">Facebook</a><br>
+                    <a href="https://www.instagram.com/clinicaveterinaria" target="_blank">Instagram</a><br>
+                    <a href="https://www.twitter.com/clinicaveterinaria" target="_blank">Twitter</a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    &copy; 2024 - clinica - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,7 +1,6 @@
 ﻿using BW_5.Models;
 using BW_5.ViewModels;
-using BW5.DataContext;
-using BW5.Models;
+using BW_5.DataContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,7 @@ namespace BW_5.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var proprietari = await _context.Cliente
+            var proprietari = await _context.Clienti
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
@@ -70,7 +69,7 @@ namespace BW_5.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model.Proprietari = await _context.Cliente
+            model.Proprietari = await _context.Clienti
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
@@ -115,7 +114,6 @@ namespace BW_5.Controllers
             return RedirectToAction(nameof(Index));
         }
         //------------------------------------------------------
-        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -133,6 +131,9 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
+            // Recupera il proprietario basato su IdProprietario
+            var proprietario = await _context.Clienti.FindAsync(animale.IdProprietario);
+
             var model = new AnimaleViewModel
             {
                 DataRegistrazione = animale.DataRegistrazione,
@@ -142,13 +143,15 @@ namespace BW_5.Controllers
                 Nascita = animale.Nascita,
                 PossiedeMicrochip = animale.PossiedeMicrochip,
                 NumeroMicrochip = animale.NumeroMicrochip,
-                IdProprietario = animale.IdProprietario ?? 0, 
-                Proprietario = animale.Cliente,
+                IdProprietario = animale.IdProprietario ?? 0,
+                Proprietario = proprietario, // Usa il proprietario recuperato
                 Anamnesi = animale.Visite.OrderByDescending(v => v.DataVisita).ToList()
             };
 
             return View(model);
         }
+
+
 
     }
 }

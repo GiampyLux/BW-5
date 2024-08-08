@@ -2,7 +2,55 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4">Benvenuti alla Clinica Zampa Magica</h1>
+    <p class="lead">Dove il benessere dei tuoi amici a quattro zampe è la nostra priorità.</p>
+</div>
+
+<div class="container mt-5">
+    <!-- Sezione Introduzione -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <img src="~/images/clinica.jpg" class="img-fluid rounded" alt="Clinica Veterinaria">
+        </div>
+        <div class="col-md-6">
+            <h2>Chi Siamo</h2>
+            <p>
+                La nostra clinica veterinaria è dedicata a fornire la migliore cura possibile per i tuoi animali domestici. Con anni di esperienza e una passione per la salute degli animali, siamo qui per assistere te e i tuoi amici a quattro zampe.
+            </p>
+        </div>
+    </div>
+
+    <!-- Sezione Servizi -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2>I Nostri Servizi</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="~/images/vaccini.jpg" class="img-fluid rounded-circle mb-2" alt="Servizio 1">
+            <h3>Vaccinazioni</h3>
+            <p>Proteggi i tuoi animali con le nostre vaccinazioni complete e sicure.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="~/images/visiteC.jpg" class="img-fluid rounded-circle mb-2" alt="Servizio 2">
+            <h3>Visite di Controllo</h3>
+            <p>Assicurati che il tuo animale stia bene con controlli regolari e professionali.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="~/images/SalaOp.jpg" class="img-fluid rounded-circle mb-2" alt="Servizio 3">
+            <h3>Chirurgia</h3>
+            <p>Offriamo interventi chirurgici avanzati per la salute e il benessere del tuo animale.</p>
+        </div>
+    </div>
+
+    <!-- Sezione Contatti -->
+    <div class="row mt-5">
+        <div class="col text-center">
+            <h2>Contattaci</h2>
+            <p>Hai domande? Vuoi prenotare un appuntamento? Siamo qui per aiutarti!</p>
+            <a href="@Url.Action("Contact", "Home")" class="btn btn-primary btn-lg">Contattaci</a>
+        </div>
+    </div>
 </div>
