@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BW_5.Controllers
 {
-    [Authorize(Policy = "AdminOrMedico")]
+    [Authorize(Policy = "MedicoOnly")]
     public class AnimaliController : Controller
     {
         private readonly ClinicaDbContext _context;
