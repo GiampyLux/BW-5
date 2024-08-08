@@ -55,9 +55,20 @@ namespace BW_5.Controllers
             return View();
         }
 
+        public IActionResult SearchByCodiceFiscale()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> SearchByCodiceFiscale(string codiceFiscale)
         {
+            if (string.IsNullOrEmpty(codiceFiscale))
+            {
+                ModelState.AddModelError("codiceFiscale", "Il Codice Fiscale è obbligatorio.");
+                return View();
+            }
+
             var cliente = await _context.Clienti
                 .Include(c => c.Vendite)
                 .ThenInclude(v => v.Prodotto)
@@ -76,6 +87,8 @@ namespace BW_5.Controllers
             };
 
             return View("VenditeCliente", viewModel);
+        }
+return View("VenditeCliente", viewModel);
         }
 
         [HttpPost]
