@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using BW_5.Models;
+using BW_5.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace BW_5.ViewModels
@@ -30,6 +32,7 @@ namespace BW_5.ViewModels
 
         public int IdProprietario { get; set; }
         public List<SelectListItem> Proprietari { get; set; } = new List<SelectListItem>();
-
+        public Cliente? Proprietario { get; set; } 
+        public List<Visita> Anamnesi { get; set; } = new List<Visita>();
     }
 }

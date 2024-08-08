@@ -2,13 +2,7 @@ using BW5.DataContext;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
-namespace BW_5
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
             // Aggiungi servizi al container.
             builder.Services.AddControllersWithViews();
@@ -37,7 +31,7 @@ namespace BW_5
 
             });
 
-            var app = builder.Build();
+var app = builder.Build();
 
             // Configurazione della pipeline di richieste HTTP
             if (!app.Environment.IsDevelopment())
@@ -46,20 +40,17 @@ namespace BW_5
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-            app.UseRouting();
+app.UseRouting();
 
             // Aggiungi autenticazione e autorizzazione
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Run();
-        }
-    }
-}
+app.Run();

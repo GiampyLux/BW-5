@@ -26,14 +26,13 @@ namespace BW_5.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var proprietari = await _context.Cliente
+            var proprietari = await _context.Clienti
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
                     Text = c.Nome + " " + c.Cognome
                 }).ToListAsync();
 
-            // Aggiunge l'opzione per nessun proprietario
             proprietari.Insert(0, new SelectListItem { Text = "Nessun proprietario", Value = "0" });
 
             var model = new AnimaleViewModel
@@ -73,7 +72,7 @@ namespace BW_5.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model.Proprietari = await _context.Cliente
+            model.Proprietari = await _context.Clienti
                 .Select(c => new SelectListItem
                 {
                     Value = c.Id.ToString(),
@@ -83,6 +82,80 @@ namespace BW_5.Controllers
 
             return View(model);
         }
+        //------------------------------------------------------
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var animale = await _context.Animali
+                .Include(a => a.Cliente) 
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (animale == null)
+            {
+                return NotFound();
+            }
+
+            return View(animale);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var animale = await _context.Animali.FindAsync(id);
+            if (animale != null)
+            {
+                _context.Animali.Remove(animale);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+        //------------------------------------------------------
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var animale = await _context.Animali
+                .Include(a => a.Cliente)
+                .Include(a => a.Visite)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (animale == null)
+            {
+                return NotFound();
+            }
+
+            // Recupera il proprietario basato su IdProprietario
+            var proprietario = await _context.Clienti.FindAsync(animale.IdProprietario);
+
+            var model = new AnimaleViewModel
+            {
+                DataRegistrazione = animale.DataRegistrazione,
+                Nome = animale.Nome,
+                Razza = animale.Razza,
+                Pelo = animale.Pelo,
+                Nascita = animale.Nascita,
+                PossiedeMicrochip = animale.PossiedeMicrochip,
+                NumeroMicrochip = animale.NumeroMicrochip,
+                IdProprietario = animale.IdProprietario ?? 0,
+                Proprietario = proprietario, // Usa il proprietario recuperato
+                Anamnesi = animale.Visite.OrderByDescending(v => v.DataVisita).ToList()
+            };
+
+            return View(model);
+        }
+
+
 
     }
 }
+

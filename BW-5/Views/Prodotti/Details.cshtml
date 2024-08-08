@@ -1,0 +1,54 @@
+﻿@model BW_5.Models.Prodotto
+
+@{
+    ViewData["Title"] = "Dettagli Prodotto";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Prodotto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdDitta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdDitta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ArmadioId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArmadioId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CassettoId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CassettoId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizzo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Utilizzo)
+        </dd>
+    </dl>
+    <p>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Modifica</a> |
+        <a asp-action="Index" class="btn btn-secondary">Torna all'elenco</a>
+    </p>
+</div>

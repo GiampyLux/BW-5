@@ -1,0 +1,97 @@
+﻿@model BW_5.ViewModels.AnimaleViewModel
+
+@{
+    ViewData["Title"] = "Dettagli Animale";
+}
+
+<h1>Dettagli Animale</h1>
+
+<div>
+    <h4>Animale</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nome
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            Razza
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Razza)
+        </dd>
+        <dt class="col-sm-2">
+            Colore del Mantello
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pelo)
+        </dd>
+        <dt class="col-sm-2">
+            Data di Nascita
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Nascita.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            Possiede Microchip
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.PossiedeMicrochip ? "Sì" : "No")
+        </dd>
+        @if (Model.PossiedeMicrochip && !string.IsNullOrEmpty(Model.NumeroMicrochip))
+        {
+            <dt class="col-sm-2">
+                Numero Microchip
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NumeroMicrochip)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Proprietario
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Proprietario != null)
+            {
+                @Model.Proprietario.Nome @Model.Proprietario.Cognome
+            }
+            else
+            {
+                <span>Nessun proprietario registrato</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<h4>Anamnesi</h4>
+<hr />
+@if (Model.Anamnesi != null && Model.Anamnesi.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data Visita</th>
+                <th>Descrizione</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var visita in Model.Anamnesi)
+            {
+                <tr>
+                    <td>@visita.DataVisita.ToShortDateString()</td>
+                    <td>@visita.DescrizioneCura</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Non ci sono visite registrate per questo animale.</p>
+}
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Torna alla lista</a>
+</p>
