@@ -4,6 +4,7 @@ using BW_5.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BW_5.Migrations
 {
     [DbContext(typeof(ClinicaDbContext))]
-    partial class ClinicaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240807151628_AggiunteProdotto")]
+    partial class AggiunteProdotto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,10 +32,6 @@ namespace BW_5.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ColoreMantello")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DataRegistrazione")
                         .HasColumnType("datetime2");
@@ -58,10 +57,6 @@ namespace BW_5.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Razza")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tipologia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -349,7 +344,7 @@ namespace BW_5.Migrations
 
             modelBuilder.Entity("BW_5.Models.Prodotto", b =>
                 {
-                    b.HasOne("BW_5.Models.Armadio", "Armadio")
+                    b.HasOne("BW_5.Models.Armadio", "armadio")
                         .WithMany("Prodotti")
                         .HasForeignKey("ArmadioId");
 
