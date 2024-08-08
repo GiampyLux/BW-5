@@ -1,48 +1,65 @@
 ﻿@model BW_5.Models.ViewModel.VenditeClienteViewModel
 
-<h1>Vendite del Cliente</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendite del Cliente</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Vendite del Cliente</h1>
 
-<h2>Prodotti Disponibili</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome Prodotto</th>
-            <th>Azioni</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var prodotto in Model.Prodotti)
-        {
+    <h2>Prodotti Disponibili</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome Prodotto</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prodotto in Model.Prodotti)
+            {
                 <tr>
                     <td>@prodotto.Nome</td>
                     <td>
-                        <form asp-action="AggiungiAlCarrello" method="post">
-                            <input type="hidden" name="clienteId" value="@ViewBag.ClienteId" />
-                            <input type="hidden" name="prodottoId" value="@prodotto.Id" />
-                            <input type="text" name="numeroRicetta" placeholder="Numero Ricetta" />
+                        <form class="add-to-cart-form">
+                            <input type="hidden" name="ClienteId" value="@ViewBag.ClienteId" />
+                            <input type="hidden" name="ProdottoId" value="@prodotto.Id" />
+                            <input type="text" name="NumeroRicetta" placeholder="Numero Ricetta" />
                             <button type="submit" class="btn btn-primary">Aggiungi al Carrello</button>
                         </form>
                     </td>
                 </tr>
-        }
-    </tbody>
-</table>
+            }
+        </tbody>
+    </table>
 
-<h2>Vendite Esistenti</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome Prodotto</th>
-            <th>Numero Ricetta</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var vendita in Model.Vendite)
-        {
-                <tr>
-                    <td>@vendita.Prodotto.Nome</td>
-                    <td>@vendita.NumeroRicetta</td>
-                </tr>
-        }
-    </tbody>
-</table>
+    <h2>Vendite Esistenti</h2>
+    <div id="vendite-esistenti">
+        @Html.Partial("_VenditeEsistentiPartial", Model.Vendite)
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart-form").on("submit", function (event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+                var form = $(this);
+                $.ajax({
+                    url: '@Url.Action("AggiungiAlCarrello", "Vendite")',
+                    type: 'POST',
+                    data: form.serialize(),
+                    success: function (response) {
+                        $("#vendite-esistenti").html(response); // Update the section with new content
+                    },
+                    error: function () {
+                        alert("Si è verificato un errore durante l'aggiunta al carrello.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

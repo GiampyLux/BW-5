@@ -1,0 +1,19 @@
+﻿@model IEnumerable<BW_5.Models.Vendita>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome Prodotto</th>
+            <th>Numero Ricetta</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendita in Model)
+        {
+            <tr>
+                <td>@vendita.Prodotto.Nome</td>
+                <td>@vendita.NumeroRicetta</td>
+            </tr>
+        }
+    </tbody>
+</table>

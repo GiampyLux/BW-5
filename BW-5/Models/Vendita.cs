@@ -8,11 +8,17 @@ namespace BW_5.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int IdCliente { get; set; }
-        public Cliente Cliente { get; set; }
-        public int IdProdotto { get; set; }
-        public int NumeroRicetta { get; set; }
-        public Prodotto Prodotto { get; set; }
 
+        [Required]
+        public int ClienteId { get; set; }
+
+        [Required]
+        public int ProdottoId { get; set; }
+
+        [Required]
+        public int NumeroRicetta { get; set; }
+
+        public Cliente Cliente { get; set; }
+        public Prodotto Prodotto { get; set; }
     }
 }

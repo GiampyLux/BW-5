@@ -36,6 +36,10 @@ namespace BW_5.DataContext
 
             modelBuilder.Entity<Ditta>()
                 .HasKey(d => d.Id);
+
+            modelBuilder.Entity<Vendita>()
+             .HasIndex(v => new { v.ClienteId, v.ProdottoId, v.NumeroRicetta })
+             .IsUnique();
         }
     }
 }

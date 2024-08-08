@@ -67,7 +67,6 @@ namespace BW_5.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -77,7 +76,11 @@ namespace BW_5.Controllers
             }
 
             var prodotto = await _context.Prodotti
+                .Include(p => p.Ditta)
+                .Include(p => p.Cassetto)
+                .Include(p => p.armadio)
                 .FirstOrDefaultAsync(p => p.Id == id);
+
             if (prodotto == null)
             {
                 return NotFound();
@@ -94,6 +97,7 @@ namespace BW_5.Controllers
             return View(viewModel);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProdottoVM viewModel)
@@ -107,12 +111,26 @@ namespace BW_5.Controllers
             {
                 try
                 {
-                    _context.Update(viewModel.Prodotto);
+                    var product = await _context.Prodotti.FindAsync(id);
+                    if (product == null)
+                    {
+                        return NotFound();
+                    }
+
+                    product.Nome = viewModel.Prodotto.Nome;
+                    product.Tipo = viewModel.Prodotto.Tipo;
+                    product.IdDitta = viewModel.Prodotto.IdDitta;
+                    product.ArmadioId = viewModel.Prodotto.ArmadioId;
+                    product.CassettoId = viewModel.Prodotto.CassettoId;
+                    product.Utilizzo = viewModel.Prodotto.Utilizzo;
+
+                    // Mark the entity as modified
+                    _context.Prodotti.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdottoExists(viewModel.Prodotto.Id))
+                    if (!ProdottoExists(id))
                     {
                         return NotFound();
                     }
@@ -124,18 +142,18 @@ namespace BW_5.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            // If model is invalid, reload the dropdowns
             viewModel.Ditte = await _context.Ditte.ToListAsync();
             viewModel.Cassetti = await _context.Cassetti.ToListAsync();
             viewModel.Armadi = await _context.Armadi.ToListAsync();
             return View(viewModel);
         }
 
+
         private bool ProdottoExists(int id)
         {
             return _context.Prodotti.Any(e => e.Id == id);
         }
-
-
 
         // GET: Prodotti/Delete/5
         public async Task<IActionResult> Delete(int id)
