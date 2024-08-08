@@ -1,4 +1,4 @@
-﻿namespace BW_5.Models
+﻿namespace BW5.Models
 {
     public class Ditta
     {

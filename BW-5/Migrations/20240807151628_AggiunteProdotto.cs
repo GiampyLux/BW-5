@@ -7,7 +7,7 @@ namespace BW_5.Migrations
 {
     /// <inheritdoc />
 <<<<<<<< HEAD:BW-5/Migrations/20240807134549_MigrazioneDefinitiva.cs
-    public partial class MigrazioneDefinitiva : Migration
+    public partial class MigrazioneDefinitiva : Migration}
 ========
     public partial class AggiunteProdotto : Migration
 >>>>>>>> BetaMainDue:BW-5/Migrations/20240807151628_AggiunteProdotto.cs

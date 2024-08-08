@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BW_5.Models;
+using BW5.Models;
 
 namespace BW_5.Models
 {
