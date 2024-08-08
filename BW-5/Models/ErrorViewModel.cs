@@ -1,4 +1,4 @@
-﻿namespace clinica.Models
+﻿namespace BW_5.Models
 {
     public class ErrorViewModel
     {

@@ -1,8 +1,8 @@
 ﻿
             using System.Collections.Generic;
-        using clinica.Models;
+        using BW_5.Models;
 
-namespace clinica.Models.ViewModel
+namespace BW_5.Models.ViewModel
     {
         public class ProdottoVM
         {

@@ -23,10 +23,44 @@
             @Html.DisplayFor(model => model.Razza)
         </dd>
         <dt class="col-sm-2">
+            Colore del Mantello
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pelo)
+        </dd>
+        <dt class="col-sm-2">
+            Data di Nascita
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Nascita.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            Possiede Microchip
+        </dt>
+        <dd class="col-sm-10">
+            @(Model.PossiedeMicrochip ? "Sì" : "No")
+        </dd>
+        @if (Model.PossiedeMicrochip && !string.IsNullOrEmpty(Model.NumeroMicrochip))
+        {
+            <dt class="col-sm-2">
+                Numero Microchip
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NumeroMicrochip)
+            </dd>
+        }
+        <dt class="col-sm-2">
             Proprietario
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Proprietario.Nome) @Html.DisplayFor(model => model.Proprietario.Cognome)
+            @if (Model.Proprietario != null)
+            {
+                @Model.Proprietario.Nome @Model.Proprietario.Cognome
+            }
+            else
+            {
+                <span>Nessun proprietario registrato</span>
+            }
         </dd>
     </dl>
 </div>
@@ -40,7 +74,6 @@
             <tr>
                 <th>Data Visita</th>
                 <th>Descrizione</th>
-                <th>Medico</th>
             </tr>
         </thead>
         <tbody>

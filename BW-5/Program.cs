@@ -1,4 +1,4 @@
-using clinica.DataContext;
+using BW_5.DataContext;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
