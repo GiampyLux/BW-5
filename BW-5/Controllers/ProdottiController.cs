@@ -1,8 +1,11 @@
 using BW_5.DataContext;
 using BW_5.Models;
-using BW_5.Models.ViewModel;
+using BW_5.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BW_5.Controllers
 {
@@ -20,15 +23,28 @@ namespace BW_5.Controllers
         {
             var prodotti = await _context.Prodotti
                 .Include(p => p.Ditta)
-                .Include(p => p.armadio)
+                .Include(p => p.Armadio)
+                .Include(p => p.Cassetto)
                 .ToListAsync();
-            return View(prodotti);
+
+            var viewModelList = prodotti.Select(p => new ProdottoVM
+            {
+                Prodotto = p,
+                Ditte = _context.Ditte.ToList(),
+                Cassetti = _context.Cassetti.ToList(),
+                Armadi = _context.Armadi.ToList()
+            }).ToList();
+
+            return View(viewModelList);
         }
 
         // GET: Prodotti/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var prodotto = await _context.Prodotti
+                .Include(p => p.Ditta)
+                .Include(p => p.Armadio)
+                .Include(p => p.Cassetto)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (prodotto == null)
@@ -36,38 +52,46 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
-            return View(prodotto);
+            var viewModel = new ProdottoVM
+            {
+                Prodotto = prodotto,
+                Ditte = await _context.Ditte.ToListAsync(),
+                Cassetti = await _context.Cassetti.ToListAsync(),
+                Armadi = await _context.Armadi.ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
         // GET: Prodotti/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            ViewBag.Ditte = await _context.Ditte.ToListAsync();
-            ViewBag.Cassetti = await _context.Cassetti.ToListAsync();
-            ViewBag.Armadi = await _context.Armadi.ToListAsync();
-            return View();
+            var viewModel = new ProdottoVM
+            {
+                Ditte = _context.Ditte.ToList(),
+                Cassetti = _context.Cassetti.ToList(),
+                Armadi = _context.Armadi.ToList()
+            };
+            return View(viewModel);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Tipo,IdDitta,Magazzino.Armadio,Magazzino.Cassetto,Utilizzo")] ProdottoVM prodotto)
+        public async Task<IActionResult> Create(ProdottoVM viewModel)
         {
-
-            var product = new Prodotto
+            if (ModelState.IsValid)
             {
-                Nome = prodotto.Nome,
-                Tipo = prodotto.Tipo,
-                IdDitta = prodotto.IdDitta,
-                Utilizzo = prodotto.Utilizzo,
-                ArmadioId = prodotto.ArmadioId,
-                CassettoId = prodotto.CassettoId
-            };
-            _context.Prodotti.Add(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+                _context.Add(viewModel.Prodotto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            viewModel.Ditte = await _context.Ditte.ToListAsync();
+            viewModel.Cassetti = await _context.Cassetti.ToListAsync();
+            viewModel.Armadi = await _context.Armadi.ToListAsync();
+            return View(viewModel);
         }
 
+        // GET: Prodotti/Edit/5
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -77,6 +101,9 @@ namespace BW_5.Controllers
             }
 
             var prodotto = await _context.Prodotti
+                .Include(p => p.Ditta)
+                .Include(p => p.Armadio)
+                .Include(p => p.Cassetto)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (prodotto == null)
             {
@@ -130,20 +157,18 @@ namespace BW_5.Controllers
             return View(viewModel);
         }
 
-        private bool ProdottoExists(int id)
-        {
-            return _context.Prodotti.Any(e => e.Id == id);
-        }
-
-
-
         // GET: Prodotti/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var prodotto = await _context.Prodotti
                 .Include(p => p.Ditta)
                 .Include(p => p.Cassetto)
-                .Include(p => p.armadio)
+                .Include(p => p.Armadio)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (prodotto == null)
@@ -153,12 +178,10 @@ namespace BW_5.Controllers
 
             var viewModel = new ProdottoVM
             {
-                Nome = prodotto.Nome,
-                Tipo = prodotto.Tipo,
-                IdDitta = prodotto.IdDitta,
-                ArmadioId = prodotto.ArmadioId,
-                CassettoId = prodotto.CassettoId,
-                Utilizzo = prodotto.Utilizzo
+                Prodotto = prodotto,
+                Ditte = await _context.Ditte.ToListAsync(),
+                Cassetti = await _context.Cassetti.ToListAsync(),
+                Armadi = await _context.Armadi.ToListAsync()
             };
 
             return View(viewModel);
@@ -169,12 +192,14 @@ namespace BW_5.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var prodotto = await _context.Prodotti.FindAsync(id);
-            if (prodotto != null)
-            {
-                _context.Prodotti.Remove(prodotto);
-                await _context.SaveChangesAsync();
-            }
+            _context.Prodotti.Remove(prodotto);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool ProdottoExists(int id)
+        {
+            return _context.Prodotti.Any(e => e.Id == id);
         }
     }
 }

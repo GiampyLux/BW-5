@@ -2,24 +2,27 @@
 using BW_5.Models;
 using BW_5.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BW_5.Controllers
 {
-    public class AnimaliController : Controller
+    public class RicoveriController : Controller
     {
         private readonly ClinicaDbContext _context;
 
-        public AnimaliController(ClinicaDbContext context)
+        public RicoveriController(ClinicaDbContext context)
         {
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Animali.ToListAsync());
+            var ricoveri = await _context.Ricoveri
+                .Include(r => r.Animale)
+                .ToListAsync();
+            return View(ricoveri);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -29,34 +32,40 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
-            var animale = await _context.Animali
+            var ricovero = await _context.Ricoveri
+                .Include(r => r.Animale)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (animale == null)
+
+            if (ricovero == null)
             {
                 return NotFound();
             }
 
-            return View(animale);
+            return View(ricovero);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Animali = new SelectList(_context.Animali, "Id", "Nome");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Razza,Pelo,Nascita,PossiedeMicrochip,NumeroMicrochip,ProprietarioId")] Animale animale)
+        public async Task<IActionResult> Create(Ricovero ricovero)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(animale);
+                _context.Add(ricovero);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(animale);
+            ViewBag.Animali = new SelectList(_context.Animali, "Id", "Nome", ricovero.IdAnimale);
+            return View(ricovero);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -64,19 +73,20 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
-            var animale = await _context.Animali.FindAsync(id);
-            if (animale == null)
+            var ricovero = await _context.Ricoveri.FindAsync(id);
+            if (ricovero == null)
             {
                 return NotFound();
             }
-            return View(animale);
+            ViewBag.Animali = new SelectList(_context.Animali, "Id", "Nome", ricovero.IdAnimale);
+            return View(ricovero);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Razza,Pelo,Nascita,PossiedeMicrochip,NumeroMicrochip,ProprietarioId")] Animale animale)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DataInizio,DataFine,Foto,IdAnimale")] Ricovero ricovero)
         {
-            if (id != animale.Id)
+            if (id != ricovero.Id)
             {
                 return NotFound();
             }
@@ -85,12 +95,12 @@ namespace BW_5.Controllers
             {
                 try
                 {
-                    _context.Update(animale);
+                    _context.Update(ricovero);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AnimaleExists(animale.Id))
+                    if (!RicoveroExists(ricovero.Id))
                     {
                         return NotFound();
                     }
@@ -101,9 +111,11 @@ namespace BW_5.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(animale);
+            ViewBag.Animali = new SelectList(_context.Animali, "Id", "Nome", ricovero.IdAnimale);
+            return View(ricovero);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -111,45 +123,42 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
-            var animale = await _context.Animali
+            var ricovero = await _context.Ricoveri
+                .Include(r => r.Animale)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (animale == null)
+
+            if (ricovero == null)
             {
                 return NotFound();
             }
 
-            return View(animale);
+            return View(ricovero);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var animale = await _context.Animali.FindAsync(id);
-            if (animale != null)
-            {
-                _context.Animali.Remove(animale);
-                await _context.SaveChangesAsync();
-            }
+            var ricovero = await _context.Ricoveri.FindAsync(id);
+            _context.Ricoveri.Remove(ricovero);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SearchByMicrochip(string microchipNumber)
+        private bool RicoveroExists(int id)
         {
-            var animale = await _context.Animali
-                .FirstOrDefaultAsync(a => a.NumeroMicrochip == microchipNumber);
-            if (animale == null)
-            {
-                return NotFound();
-            }
-            return View("Details", animale);
+            return _context.Ricoveri.Any(e => e.Id == id);
         }
 
-        private bool AnimaleExists(int id)
+        // Metodo per ottenere i ricoveri attivi
+        public async Task<IActionResult> RicoveriAttivi()
         {
-            return _context.Animali.Any(e => e.Id == id);
+            var ricoveriAttivi = await _context.Ricoveri
+                .Include(r => r.Animale)
+                .Where(r => r.DataFine == null)
+                .ToListAsync();
+
+            return View(ricoveriAttivi);
         }
     }
 }
-

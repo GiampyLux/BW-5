@@ -1,4 +1,4 @@
-﻿@model BW5.Models.Animale
+﻿@model AnimaleViewModel
 
 @{
     ViewData["Title"] = "Elimina Animale";
@@ -37,10 +37,10 @@
             @Html.DisplayFor(model => model.Nascita)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Microchip)
+            @Html.DisplayNameFor(model => model.PossiedeMicrochip)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Microchip)
+            @Html.DisplayFor(model => model.NumeroMicrochip)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Cliente.Nome)

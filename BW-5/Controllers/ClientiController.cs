@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BW5.Models;
-using BW5.DataContext;
 using BW_5.Models;
+using BW_5.DataContext;
+using BW_5.ViewModel;
+
 
 namespace BW_5.Controllers
 {
@@ -18,13 +19,13 @@ namespace BW_5.Controllers
         // GET: Clienti
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cliente.ToListAsync());
+            return View(await _context.Clienti.ToListAsync());
         }
 
         // GET: Clienti/Details/5
         public IActionResult Details(int id)
         {
-            var cliente = _context.Cliente.FirstOrDefault(c => c.Id == id);
+            var cliente = _context.Clienti.FirstOrDefault(c => c.Id == id);
             if (cliente == null)
             {
                 return NotFound();
@@ -60,7 +61,7 @@ namespace BW_5.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente.FindAsync(id);
+            var cliente = await _context.Clienti.FindAsync(id);
             if (cliente == null)
             {
                 return NotFound();
@@ -104,7 +105,7 @@ namespace BW_5.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var cliente = _context.Cliente.FirstOrDefault(c => c.Id == id);
+            var cliente = _context.Clienti.FirstOrDefault(c => c.Id == id);
             if (cliente == null)
             {
                 return NotFound();
@@ -116,20 +117,20 @@ namespace BW_5.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var cliente = _context.Cliente.FirstOrDefault(c => c.Id == id);
-            if (cliente == null)
+            var cliente = _context.Clienti.FirstOrDefault(c => c.Id == id);
+            if (cliente == null)    
             {
                 return NotFound();
             }
 
-            _context.Cliente.Remove(cliente);
+            _context.Clienti.Remove(cliente);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ClienteExists(int id)
         {
-            return _context.Cliente.Any(e => e.Id == id);
+            return _context.Clienti.Any(e => e.Id == id);
         }
     }
 }

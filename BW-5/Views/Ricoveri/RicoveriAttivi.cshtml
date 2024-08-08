@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BW_5.Models.Ricovero>
+
+@{
+    ViewData["Title"] = "Ricoveri Attivi";
+}
+
+<h1>Ricoveri Attivi</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data Inizio</th>
+            <th>Foto</th>
+            <th>Nome Animale</th>
+            <th>Tipologia</th>
+            <th>Colore Mantello</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ricovero in Model)
+        {
+            <tr>
+                <td>@ricovero.DataInizio.ToShortDateString()</td>
+                <td>
+                    <img src="@ricovero.Foto" alt="Foto di @ricovero.Animale.Nome" width="100" />
+                </td>
+                <td>@ricovero.Animale.Nome</td>
+                <td>@ricovero.Animale.Tipologia</td>
+                <td>@ricovero.Animale.ColoreMantello</td>
+            </tr>
+        }
+    </tbody>
+</table>

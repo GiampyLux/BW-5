@@ -1,54 +1,54 @@
-﻿@model BW_5.Models.Prodotto
+﻿@model ProdottoVM
 
 @{
     ViewData["Title"] = "Dettagli Prodotto";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Dettagli Prodotto</h1>
 
 <div>
     <h4>Prodotto</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
+    <dl class="row">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Tipo)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Tipo)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IdDitta)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DittaId)
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IdDitta)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DittaId)
         </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ArmadioId)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ArmadioId)
         </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CassettoId)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CassettoId)
         </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Utilizzo)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Utilizzo)
         </dd>
     </dl>
-    <p>
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Modifica</a> |
-        <a asp-action="Index" class="btn btn-secondary">Torna all'elenco</a>
-    </p>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Modifica</a> |
+    <a asp-action="Index">Torna alla lista</a>
 </div>

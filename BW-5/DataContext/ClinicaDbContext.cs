@@ -1,7 +1,6 @@
 ﻿using BW_5.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace BW_5.DataContext
 {
     public class ClinicaDbContext : DbContext
@@ -30,9 +29,8 @@ namespace BW_5.DataContext
             modelBuilder.Entity<Prodotto>()
                 .HasOne(p => p.Ditta)
                 .WithMany()  // Assumes Ditta does not have a collection of Prodotti
-                .HasForeignKey(p => p.IdDitta)
+                .HasForeignKey(p => p.DittaId) // Usa DittaId invece di IdDitta
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
-
 
             modelBuilder.Entity<Ditta>()
                 .HasKey(d => d.Id);

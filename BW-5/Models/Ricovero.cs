@@ -8,9 +8,16 @@ namespace BW_5.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public DateTime DataRicovero { get; set; }
+
+        [Required]
+        public DateTime DataInizio { get; set; }
+
+        public DateTime? DataFine { get; set; }
+
         public string Foto { get; set; }
+
         public int IdAnimale { get; set; }
+
         [ForeignKey("IdAnimale")]
         public Animale Animale { get; set; }
     }

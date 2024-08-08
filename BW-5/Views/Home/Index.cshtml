@@ -6,3 +6,19 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="text-center mt-4">
+    <h2>Ricerca per Microchip</h2>
+    <form asp-action="SearchByMicrochip" asp-controller="Animali" method="post">
+        <div class="form-group">
+            <label for="microchipNumber">Numero di Microchip</label>
+            <input type="text" class="form-control" id="microchipNumber" name="microchipNumber" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Cerca</button>
+    </form>
+</div>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning text-center mt-4">@ViewBag.Message</div>
+}

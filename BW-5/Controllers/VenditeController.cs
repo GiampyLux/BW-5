@@ -1,12 +1,11 @@
-using BW_5.DataContext;
-using BW_5.Models;
-using BW_5.Models.ViewModel;
+using BW_5.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BW_5.DataContext;
+using BW_5.Models;
 
 namespace BW_5.Controllers
 {
@@ -84,11 +83,22 @@ namespace BW_5.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!int.TryParse(model.NumeroRicetta, out int numeroRicetta))
+                {
+                    ModelState.AddModelError("NumeroRicetta", "Il numero della ricetta deve essere un valore numerico.");
+                    model.Prodotti = _context.Prodotti.ToList();
+                    model.Vendite = _context.Vendite
+                        .Where(v => v.IdCliente == model.ClienteId)
+                        .Include(v => v.Prodotto)
+                        .ToList();
+                    return View(model);
+                }
+
                 var vendita = new Vendita
                 {
                     IdCliente = model.ClienteId,
-                    IdProdotto = model.ProdottoId, 
-                    NumeroRicetta = model.NumeroRicetta
+                    IdProdotto = model.ProdottoId,
+                    NumeroRicetta = numeroRicetta
                 };
 
                 try
@@ -98,21 +108,34 @@ namespace BW_5.Controllers
                 }
                 catch (DbUpdateException ex)
                 {
-                    // Aggiungi gestione degli errori specifici qui, se necessario
                     ModelState.AddModelError("", "Errore durante il salvataggio della vendita: " + ex.Message);
-                    return View("Error"); // Assicurati di avere una vista di errore appropriata
+                    return View("Error");
                 }
 
                 return RedirectToAction(nameof(AggiungiAlCarrello), new { clienteId = model.ClienteId });
             }
 
-            // In caso di errore, ripresenta la vista con il modello
             model.Prodotti = _context.Prodotti.ToList();
             model.Vendite = _context.Vendite
                 .Where(v => v.IdCliente == model.ClienteId)
                 .Include(v => v.Prodotto)
                 .ToList();
             return View(model);
+        }
+
+        public async Task<IActionResult> SearchByDate(DateTime date)
+        {
+            var vendite = await _context.Vendite
+                .Include(v => v.Prodotto)
+                .Where(v => v.DataVendita.Date == date.Date)
+                .ToListAsync();
+
+            if (vendite == null || vendite.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return View(vendite);
         }
     }
 }

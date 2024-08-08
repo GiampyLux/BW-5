@@ -1,0 +1,29 @@
+﻿@model IEnumerable<BW_5.Models.Visita>
+
+@{
+    ViewData["Title"] = "Anamnesi";
+}
+
+<h1>Anamnesi</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data Visita</th>
+            <th>Esame</th>
+            <th>Descrizione Cura</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var visita in Model)
+        {
+            <tr>
+                <td>@visita.DataVisita.ToShortDateString()</td>
+                <td>@visita.Esame</td>
+                <td>@visita.DescrizioneCura</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index">Back to List</a>

@@ -1,12 +1,12 @@
-﻿@model BW_5.Models.ViewModel.ProdottoVM
+﻿@model ProdottoVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crea Prodotto";
 }
 
-<h1>Create</h1>
+<h1>Crea Prodotto</h1>
 
-<h4>ProdottoViewModel</h4>
+<h4>Prodotto</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,37 +22,19 @@
                 <span asp-validation-for="Tipo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdDitta" class="control-label"></label>
-                <select asp-for="IdDitta" class="form-control">
-                    <option value="">Seleziona una ditta</option>
-                    @foreach (var ditta in ViewBag.Ditte as List<BW_5.Models.Ditta>)
-                    {
-                        <option value="@ditta.Id">@ditta.Nome</option>
-                    }
-                </select>
-                <span asp-validation-for="IdDitta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CassettoId" class="control-label"></label>
-                <select asp-for="CassettoId" class="form-control">
-                    <option value="">Seleziona un cassetto</option>
-                    @foreach (var cassetto in ViewBag.Cassetti as List<BW_5.Models.Cassetto>)
-                    {
-                        <option value="@cassetto.Id">@cassetto.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="CassettoId" class="text-danger"></span>
+                <label asp-for="DittaId" class="control-label"></label>
+                <select asp-for="DittaId" class="form-control" asp-items="ViewBag.Ditte"></select>
+                <span asp-validation-for="DittaId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ArmadioId" class="control-label"></label>
-                <select asp-for="ArmadioId" class="form-control">
-                    <option value="">Seleziona un armadio</option>
-                    @foreach (var armadio in ViewBag.Armadi as List<BW_5.Models.Armadio>)
-                    {
-                        <option value="@armadio.Id">@armadio.Name</option>
-                    }
-                </select>
+                <select asp-for="ArmadioId" class="form-control" asp-items="ViewBag.Armadi"></select>
                 <span asp-validation-for="ArmadioId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CassettoId" class="control-label"></label>
+                <select asp-for="CassettoId" class="form-control" asp-items="ViewBag.Cassetti"></select>
+                <span asp-validation-for="CassettoId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Utilizzo" class="control-label"></label>
@@ -67,9 +49,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Torna alla lista</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

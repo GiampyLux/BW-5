@@ -1,12 +1,14 @@
 ﻿using BW_5.Models;
-using BW_5.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
-namespace BW_5.ViewModels
+namespace BW_5.ViewModel
 {
     public class AnimaleViewModel
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         public DateTime DataRegistrazione { get; set; }
 
@@ -16,11 +18,11 @@ namespace BW_5.ViewModels
 
         [Required]
         [StringLength(50)]
-        public string Razza { get; set; }  
+        public string Razza { get; set; }
 
         [Required]
         [StringLength(30)]
-        public string Pelo { get; set; }  
+        public string Pelo { get; set; }
 
         [Required]
         public DateTime Nascita { get; set; }
@@ -30,9 +32,17 @@ namespace BW_5.ViewModels
 
         public string? NumeroMicrochip { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Tipologia { get; set; }  // Campo aggiunto
+
+        [Required]
+        [StringLength(50)]
+        public string ColoreMantello { get; set; }  // Campo aggiunto
+
         public int IdProprietario { get; set; }
         public List<SelectListItem> Proprietari { get; set; } = new List<SelectListItem>();
-        public Cliente? Proprietario { get; set; } 
+        public Cliente? Proprietario { get; set; }
         public List<Visita> Anamnesi { get; set; } = new List<Visita>();
     }
 }

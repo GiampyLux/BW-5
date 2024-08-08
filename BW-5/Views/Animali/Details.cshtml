@@ -1,4 +1,4 @@
-﻿@model BW_5.ViewModels.AnimaleViewModel
+﻿@model AnimaleViewModel
 
 @{
     ViewData["Title"] = "Dettagli Animale";
@@ -26,7 +26,13 @@
             Colore del Mantello
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Pelo)
+            @Html.DisplayFor(model => model.ColoreMantello)
+        </dd>
+        <dt class="col-sm-2">
+            Tipologia
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Tipologia)
         </dd>
         <dt class="col-sm-2">
             Data di Nascita
