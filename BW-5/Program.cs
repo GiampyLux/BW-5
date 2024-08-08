@@ -1,31 +1,44 @@
 using BW5.DataContext;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace BW_5
 {
     public class Program
     {
-
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Aggiungi servizi al container.
             builder.Services.AddControllersWithViews();
 
-            // CONFIG
-            var conn = builder.Configuration.GetConnectionString("DbBW")!;
+            // Configurazione del DbContext
+            var conn = builder.Configuration.GetConnectionString("DbBW");
             builder.Services.AddDbContext<ClinicaDbContext>(opt =>
-                opt.UseSqlServer(builder.Configuration.GetConnectionString("DbBW")));
+                opt.UseSqlServer(conn));
+
+            // Configura l'autenticazione e l'autorizzazione
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Denied/Index";
+                });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("MedicoOnly", policy => policy.RequireRole("Medico"));
+                options.AddPolicy("FarmacistaOnly", policy => policy.RequireRole("Farmacista"));
+            });
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configurazione della pipeline di richieste HTTP
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -34,6 +47,8 @@ namespace BW_5
 
             app.UseRouting();
 
+            // Aggiungi autenticazione e autorizzazione
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BW_5.Migrations
 {
     /// <inheritdoc />
-    public partial class migr1 : Migration
+    public partial class MigrazioneDefinitiva : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace BW_5.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Cognome = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CodiceFiscale = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false)
+                    CodiceFiscale = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,8 +84,9 @@ namespace BW_5.Migrations
                     Razza = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Pelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nascita = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Microchip = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdProprietario = table.Column<int>(type: "int", nullable: false)
+                    PossiedeMicrochip = table.Column<bool>(type: "bit", nullable: false),
+                    NumeroMicrochip = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdProprietario = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,8 +95,7 @@ namespace BW_5.Migrations
                         name: "FK_Animali_Cliente_IdProprietario",
                         column: x => x.IdProprietario,
                         principalTable: "Cliente",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

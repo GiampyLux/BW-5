@@ -2,12 +2,14 @@
 using BW_5.ViewModels;
 using BW5.DataContext;
 using BW5.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace BW_5.Controllers
 {
+    [Authorize(Policy = "MedicoOnly")]
     public class AnimaliController : Controller
     {
         private readonly ClinicaDbContext _context;
