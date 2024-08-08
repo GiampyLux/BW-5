@@ -1,0 +1,63 @@
+INSERT INTO [dbo].[Ditte] ([Nome], [Contatto], [Indirizzo])
+VALUES
+('Ditta Alpha', 'Alpha@example.com', 'Via Roma 1, Milano'),
+('Beta Spa', 'Beta@example.com', 'Via Napoli 15, Roma'),
+('Gamma Srl', 'GammaSrl@example.com', 'Via Torino 23, Torino'),
+('Amazon', 'Amazon@example.com', 'Via Firenze 5, Firenze'),
+('Ebay', 'Ebay@example.com', 'Via Venezia 10, Venezia');
+
+INSERT INTO [dbo].[Clienti] ([Nome], [Cognome], [CodiceFiscale])
+VALUES
+('Mario', 'Rossi', 'RSSMRA85M01H501Z'),
+('Luigi', 'Verdi', 'VRDLGU90L01L219P'),
+('Anna', 'Bianchi', 'BNCHNN85L01A123B'),
+('Elena', 'Neri', 'NRELNE80C41Z404L'),
+('Marco', 'Gialli', 'GLLMRC75H01F205C');
+
+INSERT INTO [dbo].[Animali] ([DataRegistrazione], [Nome], [Razza], [Pelo], [Nascita], [PossiedeMicrochip], [NumeroMicrochip], [IdProprietario])
+VALUES
+('2024-01-01', 'Fido', 'Labrador', 'Giallo', '2020-05-01', 1, '123456789012345', 1),
+('2024-02-01', 'Micio', 'Siamese', 'Grigio', '2021-08-15', 1, '987654321098765', 2),
+('2024-03-01', 'Luna', 'Bulldog', 'Bianco', '2019-11-20', 0, NULL, 3),
+('2024-04-01', 'Rex', 'Pastore Tedesco', 'Nero', '2018-03-10', 1, '543210987654321', 4),
+('2024-05-01', 'Bella', 'Beagle', 'Marrone', '2022-01-30', 0, NULL, 5);
+
+INSERT INTO [dbo].[Visite] ([IdAnimale], [DataVisita], [Esame], [DescrizioneCura])
+VALUES
+(1, '2024-06-01', 'Esame del sangue', 'Antibiotico per infezione'),
+(2, '2024-07-01', 'Vaccinazione annuale', 'Vaccino trivalente somministrato'),
+(3, '2024-08-01', 'Controllo post-operatorio', 'Rimozione dei punti di sutura'),
+(4, '2024-09-01', 'Radiografia', 'Rottura della zampa, ingessatura'),
+(5, '2024-10-01', 'Esame delle feci', 'Somministrazione di antiparassitario');
+
+INSERT INTO [dbo].[Ricoveri] ([DataRicovero], [Foto], [IdAnimale])
+VALUES
+('2024-11-01', 'foto1.jpg', 1),
+('2024-11-02', 'foto2.jpg', 2),
+('2024-11-03', 'foto3.jpg', 3),
+('2024-11-04', 'foto4.jpg', 4),
+('2024-11-05', 'foto5.jpg', 5);
+
+INSERT INTO [dbo].[Armadi] ([Disponibilita], [Name])
+VALUES
+(1, 'Armadio A'),
+(1, 'Armadio B'),
+(0, 'Armadio C'),
+(1, 'Armadio D'),
+(0, 'Armadio E');
+
+INSERT INTO [dbo].[Cassetti] ([Name], [ArmadioId])
+VALUES
+(1, 1), -- Cassetto 1 nell'Armadio A
+(2, 1), -- Cassetto 2 nell'Armadio A
+(1, 2), -- Cassetto 1 nell'Armadio B
+(2, 2), -- Cassetto 2 nell'Armadio B
+(1, 3); -- Cassetto 1 nell'Armadio C
+
+INSERT INTO [dbo].[Prodotti] ([Nome], [Tipo], [IdDitta], [Utilizzo], [ArmadioId], [CassettoId], [DittaId])
+VALUES
+('Antibiotico X', 'Farmaco', 1, 'Trattamento delle infezioni batteriche', 1, 1, 1),
+('Vaccino Y', 'Vaccino', 2, 'Immunizzazione', 2, 2, 2),
+('Antiparassitario Z', 'Prodotto veterinario', 3, 'Trattamento delle infestazioni parassitarie', 3, 3, 3),
+('Integratore W', 'Integratore', 4, 'Supporto nutrizionale', 4, 4, 4),
+('Disinfettante Q', 'Disinfettante', 5, 'Pulizia delle ferite', 5, 5, 5);

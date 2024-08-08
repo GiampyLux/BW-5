@@ -1,6 +1,6 @@
-﻿using BW_5.ViewModels;
-using BW5.DataContext;
-using BW5.Models;
+﻿using BW_5.DataContext;
+using BW_5.Models;
+using BW_5.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +43,7 @@ namespace BW_5.Controllers
             if (ModelState.IsValid)
             {
                 var animale = await _context.Animali.FindAsync(model.AnimaleId);
-                if(animale != null)
+                if (animale != null)
                 {
                     var visita = new Visita
                     {
@@ -99,3 +99,4 @@ namespace BW_5.Controllers
         }
     }
 }
+
